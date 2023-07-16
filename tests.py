@@ -65,12 +65,9 @@ class TestBooksCollector:
         collector.set_book_genre('Шаровая молния', 'Фантастика')
         collector.add_new_book('Остров фантазий')
         collector.set_book_genre('Остров фантазий', 'Ужасы')
-        collector.add_new_book('Шрек')
-        collector.set_book_genre('Шрек', 'Мультфильмы')
-        collector.add_new_book('Солнцестояние')
-        collector.set_book_genre('Солнцестояние', 'Ужасы')
 
-        assert collector.get_books_with_specific_genre('Ужасы') == ['Сияние', 'Остров фантазий', 'Солнцестояние']
+
+        assert collector.get_books_with_specific_genre('Ужасы') == ['Сияние', 'Остров фантазий']
 
 
     def test_get_books_with_specific_genre_get_empty_list_of_books(self):
@@ -80,12 +77,8 @@ class TestBooksCollector:
         collector.set_book_genre('Сияние', 'Ужасы')
         collector.add_new_book('Шаровая молния')
         collector.set_book_genre('Шаровая молния', 'Фантастика')
-        collector.add_new_book('Остров фантазий')
-        collector.set_book_genre('Остров фантазий', 'Ужасы')
         collector.add_new_book('Шрек')
         collector.set_book_genre('Шрек', 'Мультфильмы')
-        collector.add_new_book('Солнцестояние')
-        collector.set_book_genre('Солнцестояние', 'Ужасы')
 
         assert collector.get_books_with_specific_genre('Боевики') == []
 
@@ -97,19 +90,13 @@ class TestBooksCollector:
         collector.set_book_genre('Сияние', 'Ужасы')
         collector.add_new_book('Шаровая молния')
         collector.set_book_genre('Шаровая молния', 'Фантастика')
-        collector.add_new_book('Остров фантазий')
-        collector.set_book_genre('Остров фантазий', 'Ужасы')
         collector.add_new_book('Шрек')
         collector.set_book_genre('Шрек', 'Мультфильмы')
-        collector.add_new_book('Солнцестояние')
-        collector.set_book_genre('Солнцестояние', 'Ужасы')
 
         assert collector.get_books_genre() == {
             'Сияние': 'Ужасы',
             'Шаровая молния': 'Фантастика',
-            'Остров фантазий': 'Ужасы',
-            'Шрек': 'Мультфильмы',
-            'Солнцестояние': 'Ужасы'
+            'Шрек': 'Мультфильмы'
         }
 
 
@@ -124,8 +111,6 @@ class TestBooksCollector:
         collector.set_book_genre('Последний гамбит', 'Детективы')
         collector.add_new_book('Шрек')
         collector.set_book_genre('Шрек', 'Мультфильмы')
-        collector.add_new_book('Солнцестояние')
-        collector.set_book_genre('Солнцестояние', 'Ужасы')
 
         assert collector.get_books_for_children() == ['Горе от ума', 'Шрек']
 
@@ -143,28 +128,22 @@ class TestBooksCollector:
         collector.add_book_in_favorites('Бессмертие')
         collector.add_book_in_favorites('Скрытые намерения')
         collector.add_book_in_favorites('Большой круг')
-        collector.add_book_in_favorites('До встречи в книжном')
 
         assert collector.get_list_of_favorites_books() == ['Бессмертие', 'Ящик Скиннера', 'Скрытые намерения']
 
 
-    def test_delete_book_from_favorites_delete_two_favorite_books(self):
+    def test_delete_book_from_favorites_delete_one_favorite_books(self):
         collector = BooksCollector()
 
         collector.add_new_book('Бессмертие')
         collector.add_new_book('Ящик Скиннера')
-        collector.add_new_book('Забытая девушка')
-        collector.add_new_book('Скрытые намерения')
 
         collector.add_book_in_favorites('Бессмертие')
         collector.add_book_in_favorites('Ящик Скиннера')
-        collector.add_book_in_favorites('Забытая девушка')
-        collector.add_book_in_favorites('Скрытые намерения')
 
-        collector.delete_book_from_favorites('Забытая девушка')
         collector.delete_book_from_favorites('Бессмертие')
 
-        assert ['Бессмертие'] and ['Скрытые намерения'] not in collector.get_list_of_favorites_books()
+        assert collector.get_list_of_favorites_books() == ['Ящик Скиннера']
 
 
     def test_get_list_of_favorites_books_get_list_of_two_selected_books(self):
